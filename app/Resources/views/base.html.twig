@@ -3,11 +3,32 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans">
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/events/css/event.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/events/css/events.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/events/css/main.css') }}" />
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div style="margin:0 auto;width:960px;">
+        <header>
+            {% block header %}
+            {% endblock %}
+        </header>
+        {% block body %}
+
+        {% endblock %}
+        <footer>
+            {% block footer %}
+
+            {% endblock %}
+        </footer>
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

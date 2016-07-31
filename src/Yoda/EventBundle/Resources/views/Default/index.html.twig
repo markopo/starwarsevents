@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    YODA :)
+{% endblock %}
+
+{% block header %}
+    <h2>Symfony Yoda Bundle</h2>
+{% endblock %}
+
+{% block body %}
+
+<h2>Hello World {{ name|upper }} </h2>
+
+    <ul>
+    {% for i in 1..10 %}
+        <li>{{ i }}</li>
+    {% endfor %}
+    </ul>
+
+
+    <h2>Event Details</h2>
+    <p>{{ event.name }}</p>
+    <p>{{ event.location }}</p>
+
+
+{% endblock %}
+
+
+{% block footer %}
+    <p>Copyright Marko @ {{ year }}</p>
+{% endblock %}
