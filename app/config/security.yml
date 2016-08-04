@@ -13,5 +13,6 @@ security:
             anonymous: ~
 
     access_control:
-          # require ROLE_ADMIN for /admin*
-       #   - { path: ^/event, roles: ROLE_USER }
+          # require authentication
+          - { path: ^/event/new, roles: ROLE_USER }
+          - { path: ^/event/[0-9]+/edit$, roles: ROLE_USER }
