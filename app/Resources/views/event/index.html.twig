@@ -37,9 +37,17 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('event_new') }}">Create a new entry</a>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a class="link" href="{{ path('event_new') }}">Create a new entry</a>
         </li>
+        <li class="list-group-item">
+            <a class="link" href="{{ path('login_form') }}" >Login</a>
+        </li>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <li class="list-group-item">
+            <a class="link" href="{{ path('logout') }}" >Logout</a>
+        </li>
+        {% endif %}
     </ul>
 {% endblock %}

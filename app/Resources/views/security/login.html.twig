@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="css/user/login.css" />
+{% endblock %}
+
+{% block body %}
+
+    <section class="login">
+        <article>
+            <h2>Login form</h2>
+
+
+            {% if error %}
+                <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form action="{{ path("login_check") }}" method="post">
+
+                <table>
+                    <tr>
+                        <td><label for="username">Username:</label></td>
+                        <td> <input type="text" id="username" name="_username" value="{{ last_username }}" /></td>
+                    </tr>
+                    <tr>
+                        <td> <label for="password">Password:</label></td>
+                        <td><input type="password" id="password" name="_password" /></td>
+                    </tr>
+                </table>
+                <hr />
+                <div>
+                  <button class="btn btn-primary pull-right" type="submit">login</button>
+                </div>
+            </form>
+        </article>
+    </section>
+
+
+{% endblock %}
