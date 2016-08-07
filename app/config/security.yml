@@ -12,7 +12,6 @@ security:
         our_database_users:
              entity:
                 class: UserBundle:User
-                property: username
 
 
     firewalls:
