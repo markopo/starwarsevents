@@ -2,9 +2,11 @@
 
 namespace Yoda\EventBundle\Controller;
 
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Yoda\EventBundle\Entity\Event;
 use Yoda\EventBundle\Form\EventType;
 
@@ -35,6 +37,7 @@ class EventController extends Controller
      */
     public function newAction(Request $request)
     {
+        $this->enforceUserSecurity();
         $event = new Event();
         $form = $this->createForm('Yoda\EventBundle\Form\EventType', $event);
         $form->handleRequest($request);
@@ -59,6 +62,7 @@ class EventController extends Controller
      */
     public function showAction(Event $event)
     {
+        $this->enforceUserSecurity();
         $deleteForm = $this->createDeleteForm($event);
 
         return $this->render('event/show.html.twig', array(
@@ -73,6 +77,7 @@ class EventController extends Controller
      */
     public function editAction(Request $request, Event $event)
     {
+        $this->enforceUserSecurity();
         $deleteForm = $this->createDeleteForm($event);
         $editForm = $this->createForm('Yoda\EventBundle\Form\EventType', $event);
         $editForm->handleRequest($request);
@@ -98,6 +103,7 @@ class EventController extends Controller
      */
     public function deleteAction(Request $request, Event $event)
     {
+        $this->enforceUserSecurity();
         $form = $this->createDeleteForm($event);
         $form->handleRequest($request);
 
@@ -124,5 +130,13 @@ class EventController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function enforceUserSecurity() {
+        $securityContext = $this->get('security.context');
+        if(!$securityContext->isGranted('ROLE_ADMIN')){
+            throw new AuthenticationException("Need ROLE ADMIN!");
+        }
+
     }
 }
