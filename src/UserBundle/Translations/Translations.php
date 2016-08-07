@@ -17,6 +17,7 @@ class Translations extends BaseTranslation {
 
         $this->translations = array(
             'Invalid credentials.' => 'Bad password bro.',
+            'Account is disabled.' => 'Sorry, you\'re locked out and disabled.'
         );
 
     }

@@ -27,6 +27,14 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface
 
         $manager->persist($user);
         $manager->flush();
+
+        $user = new User();
+        $user->setUsername('wayne');
+        $user->setPassword($this->encodePassword($user, 'waynepass'));
+        $user->setRoles(array('ROLE_ADMIN'));
+        $user->setIsActive(false);
+        $manager->persist($user);
+        $manager->flush();
     }
 
     private function encodePassword(User $user, $plainPassword) {
