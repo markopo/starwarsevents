@@ -25,6 +25,7 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface
         $user->setUsername('marko');
         $user->setPassword($this->encodePassword($user, 'markopass'));
         $user->setRoles(array('ROLE_ADMIN'));
+        $user->setEmail('marko@gmail.com');
         $manager->persist($user);
         $manager->flush();
 
@@ -32,6 +33,7 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface
         $user->setUsername('wayne');
         $user->setPassword($this->encodePassword($user, 'waynepass'));
         $user->setRoles(array('ROLE_ADMIN'));
+        $user->setEmail('wayne@gmail.com');
         $user->setIsActive(false);
         $manager->persist($user);
         $manager->flush();

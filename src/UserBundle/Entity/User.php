@@ -51,6 +51,14 @@ class User implements AdvancedUserInterface
     private $isActive = true;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+
+    /**
      * @return boolean
      */
     public function getIsActive()
@@ -232,5 +240,21 @@ class User implements AdvancedUserInterface
     public function isEnabled()
     {
         return $this->getIsActive();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 }
