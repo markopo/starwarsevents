@@ -26,6 +26,10 @@ class SecurityController extends Controller {
         if($messageKey != null) {
             $trans = new Translations();
             $errormessage = $trans->get($messageKey);
+
+            if(empty($errormessage)) {
+                $errormessage = $messageKey;
+            }
         }
 
         return $this->render(':security:login.html.twig', array(
