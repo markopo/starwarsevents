@@ -11,6 +11,19 @@
         <article>
             <h1>Register</h1>
 
+            <form action="{{ path('user_register') }}" method="POST">
+                <p>{{ form_errors(form) }}</p>
+
+                <p>{{ form_row(form.username) }}</p>
+                <p>{{ form_row(form.email) }}</p>
+                <p>{{ form_row(form.password, { label: 'Password' }) }}</p>
+
+
+                <p>{{ form_rest(form) }}</p>
+
+                <hr/>
+                <input type="submit" class="btn btn-primary pull-right" value="Register!" />
+            </form>
 
         </article>
     </section>

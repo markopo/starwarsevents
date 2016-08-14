@@ -23,7 +23,7 @@ class RegisterController extends Controller {
                 ->add('password', 'password')
                 ->getForm();
 
-        return $this->render(':register:register.html.twig', array('form' => $form));
+        return $this->render(':register:register.html.twig', array('form' => $form->createView()));
     }
 
 } 
