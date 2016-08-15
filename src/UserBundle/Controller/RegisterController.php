@@ -10,20 +10,51 @@ namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use UserBundle\Entity\User;
 
 class RegisterController extends Controller {
 
     /**
      * @Route("/register", name="user_register")
      */
-    public function registerAction(){
-        $form = $this->createFormBuilder()
+    public function registerAction(Request $request){
+
+        $defaultUser = new User();
+        $defaultUser->setUsername('John Doe');
+
+        $form = $this->createFormBuilder($defaultUser, array('data_class' => 'UserBundle\Entity\User'))
                 ->add('username', 'text')
                 ->add('email', 'text')
-                ->add('password', 'password')
+                ->add('password', 'repeated', array('type' => 'password'))
                 ->getForm();
 
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            // var_dump($form->getData());die;
+
+            $data = $form->getData();
+
+            $user = new User();
+            $user->setUsername($data['username']);
+            $user->setEmail($data['email']);
+            $user->setPassword($this->encodePassword($user, $data['password']));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $url = $this->generateUrl('event_index');
+            return $this->redirect($url);
+        }
+
+
         return $this->render(':register:register.html.twig', array('form' => $form->createView()));
+    }
+
+    private function encodePassword(User $user, $plainPassword) {
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+        return $encoder->encodePassword($plainPassword, $user->getSalt());
     }
 
 } 

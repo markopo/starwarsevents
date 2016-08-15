@@ -16,8 +16,8 @@
 
                 <p>{{ form_row(form.username) }}</p>
                 <p>{{ form_row(form.email) }}</p>
-                <p>{{ form_row(form.password, { label: 'Password' }) }}</p>
-
+                <p>{{ form_row(form.password.first, { label: 'Password' }) }}</p>
+                <p>{{ form_row(form.password.second, { label: 'Repeat Password' }) }}</p>
 
                 <p>{{ form_rest(form) }}</p>
 
