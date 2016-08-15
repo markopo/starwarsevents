@@ -26,19 +26,19 @@ class RegisterController extends Controller {
         $form = $this->createFormBuilder($defaultUser, array('data_class' => 'UserBundle\Entity\User'))
                 ->add('username', 'text')
                 ->add('email', 'text')
-                ->add('password', 'repeated', array('type' => 'password'))
+                ->add('plainPassword', 'repeated', array('type' => 'password'))
                 ->getForm();
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             // var_dump($form->getData());die;
 
-            $data = $form->getData();
+            $submittedUser = $form->getData();
 
             $user = new User();
-            $user->setUsername($data['username']);
-            $user->setEmail($data['email']);
-            $user->setPassword($this->encodePassword($user, $data['password']));
+            $user->setUsername($submittedUser->getUsername());
+            $user->setEmail($submittedUser->getEmail());
+            $user->setPassword($this->encodePassword($user, $submittedUser->getPlainPassword()));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
