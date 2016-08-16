@@ -11,10 +11,16 @@ class RegisterFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', 'text')
-            ->add('email', 'text')
-            ->add('plainPassword', 'repeated', array('type' => 'password'));
-
+        $builder->add('username', 'text', array('required' => true,
+            'label' => 'Användarnamn',
+            'attr' => array('class' => 'username')))
+            ->add('email', 'text', array('required' => true,
+            'label' => 'Epost address',
+            'attr' => array('class' => 'email')))
+            ->add('plainPassword', 'repeated', array('type' => 'password',
+                'required' => true,
+                'label' => 'Lösenord',
+                'attr' => array('class' => 'password')));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -26,7 +32,4 @@ class RegisterFormType extends AbstractType {
         return 'user_register';
     }
 
-
-
-
-} 
+}
