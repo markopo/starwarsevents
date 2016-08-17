@@ -4,12 +4,17 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * User
  *
  * @ORM\Table(name="yoda_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="That email is taken!")
+ * @UniqueEntity(fields="username", message="That username is taken!")
  */
 class User implements AdvancedUserInterface, \Serializable
 {
@@ -24,7 +29,8 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @var string
-     *
+     * @Assert\Length(min=3, minMessage="3 characters at least, you cheap bastard!")
+     * @Assert\NotBlank(message="Put in a username, you old fart!")
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
@@ -38,10 +44,21 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * Just stores the plain password temporarily!
-     *
+     * @Assert\NotBlank()
      * @var string
      */
     private $plainPassword;
+
+
+    public function validateUserName(ExecutionContextInterface $context) {
+
+        $dickNames = array('kuk', 'dick', 'cock', 'mulkku');
+        $username =  strtolower($this->username);
+        if(in_array($username, $dickNames)){
+            $context->addViolation('No dicks in the database, please!', array(), null);
+        }
+
+    }
 
     /**
      * @return mixed
@@ -75,7 +92,8 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Email
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;

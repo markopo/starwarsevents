@@ -8,17 +8,23 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegisterFormType extends AbstractType {
 
+    private $required;
+
+    public function __construct($required = true){
+        $this->required = $required;
+    }
+
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', 'text', array('required' => true,
+        $builder->add('username', 'text', array('required' => $this->required,
             'label' => 'Användarnamn',
             'attr' => array('class' => 'username')))
-            ->add('email', 'text', array('required' => true,
+            ->add('email', 'text', array('required' => $this->required,
             'label' => 'Epost address',
             'attr' => array('class' => 'email')))
             ->add('plainPassword', 'repeated', array('type' => 'password',
-                'required' => true,
+                'required' => $this->required,
                 'label' => 'Lösenord',
                 'attr' => array('class' => 'password')));
     }

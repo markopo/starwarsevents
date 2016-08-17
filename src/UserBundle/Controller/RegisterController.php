@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Form\RegisterFormType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class RegisterController extends Controller {
 
@@ -24,7 +25,9 @@ class RegisterController extends Controller {
         $defaultUser = new User();
         $defaultUser->setUsername('John Doe');
 
-        $form = $this->createForm(new RegisterFormType(), $defaultUser);
+        $form = $this->createForm(new RegisterFormType(false), $defaultUser, array('constraints' => array(
+            new Assert\Callback(array('validateUserName'))
+        )));
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
