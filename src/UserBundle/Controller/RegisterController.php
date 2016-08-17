@@ -44,6 +44,8 @@ class RegisterController extends Controller {
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', 'Welcome to the Death Star! Have a magical day!');
+
             $url = $this->generateUrl('event_index');
             return $this->redirect($url);
         }
