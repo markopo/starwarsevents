@@ -43,6 +43,10 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $this->getUser();
+            $event->setOwner($user);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();

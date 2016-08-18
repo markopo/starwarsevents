@@ -55,7 +55,7 @@ class User implements AdvancedUserInterface, \Serializable
         $dickNames = array('kuk', 'dick', 'cock', 'mulkku');
         $username =  strtolower($this->username);
         if(in_array($username, $dickNames)){
-            $context->addViolation('No dicks in the database, please!', array(), null);
+            $context->addViolation("No {$username} in the database, please!", array(), null);
         }
 
     }
