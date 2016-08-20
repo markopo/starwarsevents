@@ -44,6 +44,8 @@ class EventController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $this->enforceOwnerSecurity($event);
+
             $user = $this->getUser();
             $event->setOwner($user);
 
@@ -87,6 +89,8 @@ class EventController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->enforceOwnerSecurity($event);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -112,6 +116,8 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->enforceOwnerSecurity($event);
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($event);
             $em->flush();
@@ -140,6 +146,15 @@ class EventController extends Controller
         $securityContext = $this->get('security.context');
         if(!$securityContext->isGranted('ROLE_ADMIN')){
             throw new AuthenticationException("Need ROLE ADMIN!");
+        }
+
+    }
+
+    private function enforceOwnerSecurity(Event $event){
+        $user = $this->getUser();
+
+        if($user != $event->getOwner()){
+            throw new AccessDeniedException('You do not own this!');
         }
 
     }

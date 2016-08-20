@@ -28,7 +28,7 @@ class LoadEvents implements FixtureInterface, OrderedFixtureInterface
         $manager->persist($event2);
 
         $event->setOwner($marko);
-        $event2->setOwner($marko); 
+        $event2->setOwner($marko);
 
         $manager->flush();
     }
