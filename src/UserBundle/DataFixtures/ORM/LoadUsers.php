@@ -7,9 +7,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 
-class LoadUser implements FixtureInterface, ContainerAwareInterface
+class LoadUser implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
     /**
      * @var ContainerInterface
@@ -56,4 +57,13 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface
     }
 
 
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 10;
+    }
 }
