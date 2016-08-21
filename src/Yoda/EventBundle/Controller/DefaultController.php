@@ -2,10 +2,10 @@
 
 namespace Yoda\EventBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Yoda\EventBundle\Controller\Controller as CustomController;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class DefaultController extends CustomController
 {
     public function indexAction($name)
     {

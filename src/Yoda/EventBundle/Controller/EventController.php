@@ -4,7 +4,7 @@ namespace Yoda\EventBundle\Controller;
 
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Yoda\EventBundle\Controller\Controller as CustomController;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Yoda\EventBundle\Entity\Event;
@@ -14,7 +14,7 @@ use Yoda\EventBundle\Form\EventType;
  * Event controller.
  *
  */
-class EventController extends Controller
+class EventController extends CustomController
 {
     /**
      * Lists all Event entities.
@@ -142,20 +142,7 @@ class EventController extends Controller
         ;
     }
 
-    private function enforceUserSecurity() {
-        $securityContext = $this->get('security.context');
-        if(!$securityContext->isGranted('ROLE_ADMIN')){
-            throw new AuthenticationException("Need ROLE ADMIN!");
-        }
 
-    }
 
-    private function enforceOwnerSecurity(Event $event){
-        $user = $this->getUser();
 
-        if($user != $event->getOwner()){
-            throw new AccessDeniedException('You do not own this!');
-        }
-
-    }
 }

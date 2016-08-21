@@ -8,14 +8,14 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Yoda\EventBundle\Controller\Controller as CustomController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Form\RegisterFormType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RegisterController extends Controller {
+class RegisterController extends CustomController {
 
     /**
      * @Route("/register", name="user_register")
