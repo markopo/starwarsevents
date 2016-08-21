@@ -14,10 +14,16 @@ use Yoda\EventBundle\Entity\Event;
 
 class Controller extends BaseController {
 
+    /**
+     * @return \Symfony\Component\Security\Core\SecurityContext
+     */
     public function getSecurityContext() {
         return $this->container->get('security.context');
     }
 
+    /**
+     * @throws AuthenticationException
+     */
     public function enforceUserSecurity() {
         $securityContext = $this->getSecurityContext();
         if(!$securityContext->isGranted('ROLE_ADMIN')){
@@ -25,6 +31,9 @@ class Controller extends BaseController {
         }
     }
 
+    /**
+     * @param Event $event
+     */
     public function enforceOwnerSecurity(Event $event){
         $user = $this->getUser();
 

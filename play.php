@@ -37,3 +37,18 @@ $em = $container->get('doctrine')->getManager();
 $em->persist($event);
 $em->flush();
 */
+
+
+/**
+use Doctrine\ORM\EntityManager;
+use UserBundle\Repository\UserRepository;
+use UserBundle\Entity\User;
+
+$em = $container->get('doctrine')->getManager();
+$marko = $em->getRepository('UserBundle:User')->findOneByUsernameOrEmail('marko');
+
+foreach($marko->getEvents() as $event) {
+    var_dump($event->getName());
+}
+ *  */
+

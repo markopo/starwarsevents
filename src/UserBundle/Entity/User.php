@@ -2,6 +2,7 @@
 
 namespace UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,6 +19,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class User implements AdvancedUserInterface, \Serializable
 {
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection([]);
+    }
+
+
     /**
      * @var int
      *
@@ -48,6 +56,8 @@ class User implements AdvancedUserInterface, \Serializable
      * @var string
      */
     private $plainPassword;
+
+
 
 
     public function validateUserName(ExecutionContextInterface $context) {
@@ -97,6 +107,22 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Yoda\EventBundle\Entity\Event", mappedBy="owner")
+     */
+    private $events;
+
+    /**
+     * @return mixed
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+  
 
 
     /**
