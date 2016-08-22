@@ -16,7 +16,7 @@ class LoadEvents implements FixtureInterface, OrderedFixtureInterface
         $event = new Event();
         $event->setName('Luke Skywalkers breakfast');
         $event->setLocation('Antooine');
-        $event->setTime(new \DateTime('tomorrow noon'));
+        $event->setTime(new \DateTime('2018-01-08'));
         $event->setDetails('Ha! May the force be with you!!!');
         $manager->persist($event);
 

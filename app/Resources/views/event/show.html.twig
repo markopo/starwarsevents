@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Event</h1>
 
-    <table>
+    <table class="table table-bordered" style="background:#fff;">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -28,6 +28,28 @@
             <tr>
                 <th>Details</th>
                 <td>{{ event.details }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h3>{{ event.attendees|length }} attending!</h3>
+                    <ul class="users">
+                      {% for attendee in event.attendees %}
+                        <li>{{ attendee }}</li>
+                      {% else %}
+                        <li>We're cool! RSVP!</li>
+                      {% endfor %}
+                    </ul>
+
+                    {% if event.hasAttendee(app.user) %}
+                        <a href="{{ path('event_unattend', { id: event.id }) }}" class="btn btn-warning btn-xs">
+                           Oh no! I can't go anymore!
+                        </a>
+                    {%  else %}
+                        <a href="{{ path('event_attend', { id: event.id }) }}" class="btn btn-success btn-xs">
+                            I want to go!!
+                        </a>
+                    {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>

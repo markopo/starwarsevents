@@ -5,10 +5,9 @@ namespace Yoda\EventBundle\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Yoda\EventBundle\Controller\Controller as CustomController;
-
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Yoda\EventBundle\Entity\Event;
 use Yoda\EventBundle\Form\EventType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Event controller.
@@ -123,6 +122,48 @@ class EventController extends CustomController
         }
 
         return $this->redirectToRoute('event_index');
+    }
+
+
+    public function attendAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('EventBundle:Event')->find($id);
+
+        if(!$event) {
+            throw $this->createNotFoundException('Unable to find Event entity!');
+        }
+
+        $thisUser = $this->getUser();
+
+        if(!$event->hasAttendee($thisUser)) {
+            $event->getAttendees()->add($thisUser);
+            $em->persist($event);
+            $em->flush();
+        }
+
+        $url = $this->generateUrl('event_show', array('slug' => $event->getSlug()));
+        return $this->redirect($url);
+    }
+
+    public function unattendAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('EventBundle:Event')->find($id);
+
+        if(!$event) {
+            throw $this->createNotFoundException('Unable to find Event entity!');
+        }
+
+        $thisUser = $this->getUser();
+
+        if($event->hasAttendee($thisUser)) {
+            $event->getAttendees()->removeElement($thisUser);
+            $em->persist($event);
+            $em->flush();
+        }
+
+        $url = $this->generateUrl('event_show', array('slug' => $event->getSlug()));
+        return $this->redirect($url);
+
     }
 
     /**

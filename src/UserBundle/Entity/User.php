@@ -122,7 +122,7 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->events;
     }
 
-  
+
 
 
     /**
@@ -352,5 +352,10 @@ class User implements AdvancedUserInterface, \Serializable
     public function unserialize($serialized)
     {
        list($this->id, $this->username, $this->password) = unserialize($serialized);
+    }
+
+
+    public function __toString() {
+        return (string)$this->getUsername();
     }
 }

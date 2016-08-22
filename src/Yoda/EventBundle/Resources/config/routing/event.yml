@@ -22,3 +22,13 @@ event_delete:
     path:     /{id}/delete
     defaults: { _controller: "EventBundle:Event:delete" }
     methods:  DELETE
+
+event_attend:
+    path:     /{id}/attend
+    defaults: { _controller: "EventBundle:Event:attend" }
+    methods:  [GET, POST]
+
+event_unattend:
+    path:     /{id}/unattend
+    defaults: { _controller: "EventBundle:Event:unattend" }
+    methods:  [GET, POST]

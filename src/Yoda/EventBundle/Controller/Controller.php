@@ -11,6 +11,7 @@ namespace Yoda\EventBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Yoda\EventBundle\Entity\Event;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class Controller extends BaseController {
 
