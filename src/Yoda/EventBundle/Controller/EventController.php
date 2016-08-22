@@ -23,8 +23,7 @@ class EventController extends CustomController
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $events = $em->getRepository('EventBundle:Event')->findAll();
+        $events = $em->getRepository('EventBundle:Event')->getUpcomingEvents();
 
         return $this->render('event/index.html.twig', array(
             'events' => $events,
