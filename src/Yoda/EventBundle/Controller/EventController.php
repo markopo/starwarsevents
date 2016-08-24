@@ -4,10 +4,12 @@ namespace Yoda\EventBundle\Controller;
 
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Yoda\EventBundle\Controller\Controller as CustomController;
 use Yoda\EventBundle\Entity\Event;
 use Yoda\EventBundle\Form\EventType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 /**
  * Event controller.
@@ -125,7 +127,7 @@ class EventController extends CustomController
     }
 
 
-    public function attendAction($id){
+    public function attendAction($id, $format){
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('EventBundle:Event')->find($id);
 
@@ -141,11 +143,10 @@ class EventController extends CustomController
             $em->flush();
         }
 
-        $url = $this->generateUrl('event_show', array('slug' => $event->getSlug()));
-        return $this->redirect($url);
+        return $this->createAttendingResponse($event, $format);
     }
 
-    public function unattendAction($id) {
+    public function unattendAction($id, $format) {
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('EventBundle:Event')->find($id);
 
@@ -161,9 +162,19 @@ class EventController extends CustomController
             $em->flush();
         }
 
+        return $this->createAttendingResponse($event, $format);
+    }
+
+    private function createAttendingResponse(Event $event, $format) {
+
+        if($format == 'json') {
+            $data = [ 'attending' => $event->hasAttendee($this->getUser()) ];
+            $response = new JsonResponse($data);
+            return $response;
+        }
+
         $url = $this->generateUrl('event_show', array('slug' => $event->getSlug()));
         return $this->redirect($url);
-
     }
 
     /**

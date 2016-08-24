@@ -45,6 +45,8 @@
             {% endblock %}
         </footer>
         </div>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery-3.1.0.min.js') }}" ></script>
+        {% endblock %}
     </body>
 </html>
