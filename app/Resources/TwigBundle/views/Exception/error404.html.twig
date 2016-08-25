@@ -2,5 +2,7 @@
 
 
  {% block body %}
-        <h2>Oops! Not found! Looking for something?</h2>
+        <h2 style="color:#fff;font-weight:bold;" >Oops! Not found! Looking for something?</h2>
+
+     {{ render(controller('EventBundle:Event:_upcomingEvents')) }}
  {% endblock %}

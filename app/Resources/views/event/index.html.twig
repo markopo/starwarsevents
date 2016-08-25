@@ -3,39 +3,7 @@
 {% block body %}
     <h1>Event list</h1>
 
-    <table class="table table-bordered" style="background:#fff;border-radius:3px;" >
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Time</th>
-                <th>Location</th>
-                <th>Details</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for event in events %}
-            <tr>
-                <td><a href="{{ path('event_show', { 'slug': event.slug }) }}">{{ event.id }}</a></td>
-                <td>{{ event.name }}</td>
-                <td>{% if event.time %}{{ event.time|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ event.location }}</td>
-                <td>{{ event.details }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('event_show', { 'slug': event.slug }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('event_edit', { 'slug': event.slug }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+   {{ render(controller('EventBundle:Event:_upcomingEvents')) }}
 
     <ul class="list-group">
         <li class="list-group-item">

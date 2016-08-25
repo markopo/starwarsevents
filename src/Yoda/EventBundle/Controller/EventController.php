@@ -23,13 +23,15 @@ class EventController extends CustomController
      */
     public function indexAction()
     {
+        return $this->render('event/index.html.twig');
+    }
+
+    public function _upcomingEventsAction() {
         $em = $this->getDoctrine()->getManager();
         $events = $em->getRepository('EventBundle:Event')->getUpcomingEvents();
-
-        return $this->render('event/index.html.twig', array(
-            'events' => $events,
-        ));
+        return $this->render(':event:_upcomingEvents.html.twig', array('events' => $events));
     }
+
 
     /**
      * Creates a new Event entity.
