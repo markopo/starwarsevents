@@ -4,5 +4,5 @@
  {% block body %}
         <h2 style="color:#fff;font-weight:bold;" >Oops! Not found! Looking for something?</h2>
 
-     {{ render(controller('EventBundle:Event:_upcomingEvents')) }}
+     {{ render(controller('EventBundle:Event:_upcomingEvents', { 'max' : 1 })) }}
  {% endblock %}
