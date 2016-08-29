@@ -1,0 +1,11 @@
+
+
+report_index:
+    path:     /
+    defaults: { _controller: "EventBundle:Report:index" }
+    methods:  GET
+
+report_updatedevents:
+    path:     /recentlyupdated.{format}
+    defaults: { _controller: "EventBundle:Report:updatedEvents" }
+    methods:  GET

@@ -2,6 +2,10 @@ event_event:
     resource: "@EventBundle/Resources/config/routing/event.yml"
     prefix:   /event
 
+report_report:
+    resource: "@EventBundle/Resources/config/routing/report.yml"
+    prefix:   /report
+
 event_homepage:
     path:     /hello/{name}
     defaults: { _controller: EventBundle:Default:index }
