@@ -4,6 +4,8 @@ namespace Yoda\EventBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventType extends AbstractType
@@ -31,4 +33,6 @@ class EventType extends AbstractType
             'data_class' => 'Yoda\EventBundle\Entity\Event'
         ));
     }
+
+
 }

@@ -1,3 +1,4 @@
+
 .login {
     width: 500px;
     margin: 100px auto;
@@ -23,7 +24,7 @@
 }
 .login article input[type="text"], .login article input[type="password"], .login article input[type="email"] {
     border: 1px solid #ccc;
-    font-size: 24px;
+    font-size: 14px;
     padding: 5px;
     width: 220px;
     -webkit-border-radius:3px;

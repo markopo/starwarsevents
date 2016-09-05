@@ -14,7 +14,7 @@
             <form action="{{ path('user_register') }}" method="POST">
                 <p>{{ form_errors(form) }}</p>
 
-                <p>{{ form_row(form.username) }}</p>
+                <p>{{ form_row(form.username,{ 'attr': { 'class': 'a-clever-class' }, 'help' : 'Write a fantastic username!!' }) }}</p>
                 <p>{{ form_row(form.email) }}</p>
                 <p>{{ form_row(form.plainPassword.first, { label: 'Lösenord' }) }}</p>
                 <p>{{ form_row(form.plainPassword.second, { label: 'Lösenord igen' }) }}</p>
